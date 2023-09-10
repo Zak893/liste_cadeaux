@@ -3,3 +3,21 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+register:
+    path: /registration
+    controller: App\Controller\RegistrationController::index
+list:
+    path: /list
+    controller: App\Controller\ListController::createList
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+profile:
+    path: '/profile'
+    controller: 'App\Controller\ProfileController::index'
+list_type:
+    path: /list/type/
+    controller: App\Controller\ListTypeController::index
+app_access_denied:
+    path: /access-denied
+    controller: App\Controller\AccessDeniedController::index

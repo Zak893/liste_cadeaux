@@ -1,0 +1,62 @@
+{% extends 'head.html.twig' %}
+
+{% block title %}ListType{% endblock %}
+
+{% block body %}
+    <h1>List shared</h1>
+        {% if  is_password_verified %}
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ list_type.id }}</td>
+                </tr>
+                <tr>
+                    <th>Titre</th>
+                    <td>{{ list_type.Titre }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ list_type.Description }}</td>
+                </tr>
+                <tr>
+                    <img src="{{ list_type.Couverture }}">
+                </tr>
+                <tr>
+                    <th>Theme</th>
+                    <td>{{ list_type.Theme }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+<h1>Gift Associated to this list</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Prix</th>
+        <th>Lien</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for gift in gifts %}
+        <tr>
+            <td>{{ gift.id }}</td>
+            <td>{{ gift.name }}</td>
+            <td>{{ gift.prix }}</td>
+            <td>{{ gift.lien }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="7">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+        {% endif %}
+
+{% endblock %}

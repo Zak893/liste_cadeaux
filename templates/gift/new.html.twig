@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Gift{% endblock %}
+
+{% block body %}
+    <h1>Create new Gift</h1>
+
+    {{ include('gift/_form.html.twig') }}
+
+    <a href="{{ path('app_gift_index') }}">back to list</a>
+    <script>
+
+        // Obtenez l'ID de l'utilisateur connecté depuis les données de l'utilisateur
+
+
+        // Mettez à jour la valeur du champ user_id
+        let listField = document.getElementById('gift1_list_id');
+        let userField = document.getElementById('gift1_user_id');
+        if (listField) {
+            listField.value = {{ id }};
+        }
+        if (userField) {
+            userField.value = {{ userId }};
+        }
+
+    </script>
+{% endblock %}

@@ -1,0 +1,97 @@
+{# templates/registration/index.html.twig #} {% extends 'base.html.twig' %} {%
+    block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 ml-md-auto">
+                <div class="card bg-light mb-3 mt-5" style="width: 800px">
+                    <div class="card-body">
+                        <div class="card-header mb-3">Create List</div>
+                        {{ form_start(form) }}
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(form.Titre, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(form.Description, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(form.Couverture, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(form.theme, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(form.status, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(form.password, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(form.date_ouvert, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(form.date_fin, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+
+                                {{ form_row(form.user_id) }}
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-btn fa-user"></i> Register
+                                </button>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const statusField = document.getElementById('listform_status');
+        const passwordField = document.getElementById('listform_password');
+
+        statusField.addEventListener('click', function() {
+            if (statusField.checked) { // Si "Privée" est sélectionné
+                passwordField.removeAttribute('readonly');
+            } else {
+                passwordField.setAttribute('readonly', 'readonly');
+                passwordField.value =''// Ajoutez l'attribut readonly
+            }
+        });
+
+        {% if app.user %}
+        // Obtenez l'ID de l'utilisateur connecté depuis les données de l'utilisateur
+
+
+        // Mettez à jour la valeur du champ user_id
+        let userField = document.getElementById('listform_user_id');
+        if (userField) {
+            userField.value =  {{ app.user.id }};
+        }
+        {% endif %}
+    </script>
+{% endblock %}

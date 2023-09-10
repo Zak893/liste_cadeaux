@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ListType index{% endblock %}
+
+{% block body %}
+    <h1>List of gifts</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Theme</th>
+                <th>Status</th>
+                <th>Date_ouvert</th>
+                <th>Date_fin</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for list_type in list_types %}
+            <tr>
+                <td>{{ list_type.id }}</td>
+                <td>{{ list_type.Titre }}</td>
+                <td>{{ list_type.Description }}</td>
+                <td>{{ list_type.Theme }}</td>
+                <td> {% if list_type.Status %}
+                Private
+                {% endif %}
+                {% if not list_type.Status %}
+                Public
+                {% endif %}</td>
+                <td>{{ list_type.dateOuvert }}</td>
+                <td>{{ list_type.dateFin }}</td>
+                <td>
+                    <a href="{{ path('app_list_type_show', {'id': list_type.id}) }}">show</a>
+                    <i> - </i>
+                    <a href="{{ path('app_list_type_edit', {'id': list_type.id}) }}">edit</a>
+                    <i> - </i>
+                    <a href="{{ path('app_gift_new', {'id': list_type.id}) }}">Add Gift</a>
+                    <i> - </i>
+                    <a onclick="share(this)" data-url="{{ url('app_partage', {'id': list_type.id}) }}" href="#">Share list</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<script>
+    function share(element) {
+        // Récupérer la valeur de l'attribut data-url
+        var dataUrl = element.getAttribute('data-url');
+
+        // Copier la valeur dans le presse-papiers
+        var dummyInput = document.createElement('input');
+        document.body.appendChild(dummyInput);
+        dummyInput.setAttribute('value', dataUrl);
+        dummyInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummyInput);
+
+        // Afficher un message de confirmation
+        alert('Lien copié dans le presse-papiers : ' + dataUrl);
+    }
+</script>
+{% endblock %}
