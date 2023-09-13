@@ -23,8 +23,10 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils,SessionInterface $session): Response
     {
+        $session->remove('user');
+        $session->remove('reset_password_token');
          if ($this->getUser() && $this->getUser()->getUserIdentifier() != null ) {
              return $this->redirectToRoute('profile');
          }
@@ -134,7 +136,6 @@ class SecurityController extends AbstractController
                 $user->setPassword($request->request->get('password'));
                 $usersRepository->getEntityManager()->persist($user);
                 $usersRepository->getEntityManager()->flush();
-                $session->clear();
                 return  $this->redirectToRoute('app_login');
             }
           return  $this->render('security/rest.html.twig');
