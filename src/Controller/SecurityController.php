@@ -125,7 +125,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/forgot-password/rest', name: 'rest')]
-    public function rest(Request $request,SessionInterface $session,AuthenticationUtils $authenticationUtils,JWTService $jwt, UserRepository $usersRepository): mixed
+    public function rest(Request $request,SessionInterface $session,AuthenticationUtils $authenticationUtils,JWTService $jwt, UserRepository $usersRepository, EntityManagerInterface $entityManager): mixed
     {
 
         $token = $session->get('reset_password_token');
@@ -134,8 +134,8 @@ class SecurityController extends AbstractController
             if ($request->isMethod('POST')) {
                 $user = $usersRepository->findOneBy(['id' => $userId]);
                 $user->setPassword($request->request->get('password'));
-                $usersRepository->getEntityManager()->persist($user);
-                $usersRepository->getEntityManager()->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
                 return  $this->redirectToRoute('app_login');
             }
           return  $this->render('security/rest.html.twig');
