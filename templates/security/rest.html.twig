@@ -1,0 +1,84 @@
+{# templates/security/login.html.twig #} {% extends 'base.html.twig' %} {% block
+    title %}Log in!{% endblock %} {% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 ml-md-auto">
+                <div class="">
+                    <div class="card bg-light mb-3 mt-5" style="width: 800px;">
+                        <div class="card-body">
+                            <form class="form-horizontal" action="{{ path('rest') }}" role="form" method="post">
+                                        <div class="card-header mb-3">Please sign in</div>
+                                <div class="form-group">
+                                    <label for="password" class="col-md-4 control-label"
+                                    >Password</label
+                                    >
+                                    <div class="col-md-12">
+                                        <input
+                                                id="inputPassword"
+                                                type="password"
+                                                class="form-control"
+                                                name="password"
+                                                required
+                                        />
+                                    </div>
+                                </div>
+                                        <div class="form-group">
+                                            <label for="password-confirm" class="col-md-4 control-label"
+                                            >Password confirmation</label
+                                            >
+                                            <div class="col-md-12">
+                                                <input
+                                                        id="inputPassword-confirm"
+                                                        type="password"
+                                                        class="form-control"
+                                                        name="password-confirm"
+                                                        required
+                                                />
+                                            </div>
+                                        </div>
+                                        <input
+                                                type="hidden"
+                                                name="_csrf_token"
+                                                value="{{ csrf_token('authenticate') }}"
+                                        />
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-primary" id="submitButton">
+                                                    <i class="fa fa-btn fa-sign-in"></i> save
+                                                </button>
+                                            </div>
+                                        </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const passwordInput = document.getElementById("inputPassword");
+            const confirmPasswordInput = document.getElementById("inputPassword-confirm");
+            const submitButton = document.getElementById("submitButton");
+
+            function checkPasswordMatch() {
+                const password = passwordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+
+                if (password === confirmPassword) {
+                    // Les mots de passe correspondent, supprimez une éventuelle classe d'erreur
+                    confirmPasswordInput.classList.remove("is-invalid");
+                    submitButton.disabled = false;
+                } else {
+                    // Les mots de passe ne correspondent pas, ajoutez une classe d'erreur
+                    confirmPasswordInput.classList.add("is-invalid");
+                    submitButton.disabled = true;
+                }
+            }
+
+            passwordInput.addEventListener("input", checkPasswordMatch);
+            confirmPasswordInput.addEventListener("input", checkPasswordMatch);
+        });
+    </script>
+
+{% endblock %}

@@ -21,3 +21,15 @@ list_type:
 app_access_denied:
     path: /access-denied
     controller: App\Controller\AccessDeniedController::index
+app_forgot_password_request:
+    path: '/forgot-password'
+    controller: App\Controller\SecurityController::forgotPasswordRequest
+    methods: ['GET', 'POST']
+app_forgot_password_check:
+    path: '/forgot-password/check'
+    controller: App\Controller\SecurityController::forgotPasswordCheck
+    methods: ['GET', 'POST']
+rest:
+    path: '/forgot-password/rest'
+    controller: App\Controller\SecurityController::rest
+    methods: ['GET', 'POST']
