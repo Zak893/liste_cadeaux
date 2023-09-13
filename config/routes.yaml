@@ -10,7 +10,7 @@ list:
     path: /list
     controller: App\Controller\ListController::createList
 login:
-    path: /login
+    path: /
     controller: App\Controller\SecurityController::login
 profile:
     path: '/profile'
