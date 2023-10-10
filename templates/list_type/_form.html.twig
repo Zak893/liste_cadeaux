@@ -1,4 +1,33 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+{{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+<div class="form-group">
+    {{ form_widget(form.Titre, {'attr': {'class': 'form-control', 'placeholder': 'Name'}}) }}
+</div>
+<div class="form-group">
+    {{ form_widget(form.Description, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+</div>
+<div class="form-group">
+    {{ form_widget(form.Couverture, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+</div>
+<div class="form-group">
+    {{ form_widget(form.Theme, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+</div>
+<div class="form-group">
+    {{ form_widget(form.Status, {'attr': {'class': 'form-control hidden', 'placeholder': 'Email'}}) }}
+</div>
+<div class="form-group">
+    {{ form_widget(form.date_ouvert, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+</div>
+<div class="form-group">
+    {{ form_widget(form.date_fin, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+</div>
+<a class="btn" style="background-color: #6c757d; color: white" href="{{ path('app_list_type_index') }}"><-back to list</a>
+
+<button class="btn btn-primary" style="background-color: green">{{ button_label|default('Save') }}</button>
+
+
 {{ form_end(form) }}

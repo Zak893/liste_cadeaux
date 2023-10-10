@@ -29,10 +29,10 @@
             <tr>
                 <th>Status</th>
                 {% if list_type.Status %}
-                <td>Private</td>
+                <td class="private-status">Private</td>
                 {% endif %}
                 {% if not list_type.Status %}
-                    <td>Public</td>
+                    <td class="public-status">Public</td>
                 {% endif %}
             </tr>
             <tr>
@@ -45,10 +45,102 @@
             </tr>
         </tbody>
     </table>
+ <div>
+        <a class="btn" style="background-color: #6c757d" href="{{ path('app_list_type_index') }}"><- back to list</a>
 
-    <a href="{{ path('app_list_type_index') }}">back to list</a>
-
-    <a href="{{ path('app_list_type_edit', {'id': list_type.id}) }}">edit</a>
+    <a class="btn" style="background-color: #ffc107" href="{{ path('app_list_type_edit', {'id': list_type.id}) }}">edit</a>
 
     {{ include('list_type/_delete_form.html.twig') }}
+ </div>
+    <style>
+        /* Styles pour le tableau */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        /* Styles pour les boutons */
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+        .btn-success {
+            background-color: #ffc107;
+        }
+
+        /* Styles pour les états "Private" et "Public" */
+        .private-status {
+            color: #ff5733; /* Rouge pour "Private" */
+        }
+
+        .public-status {
+            color: #28a745; /* Vert pour "Public" */
+        }
+        /* Styles pour le tableau */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        /* Styles pour les boutons */
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        /* Styles pour les états "Private" et "Public" */
+        .private-status {
+            color: #ff5733; /* Rouge pour "Private" */
+        }
+
+        .public-status {
+            color: #28a745; /* Vert pour "Public" */
+        }
+
+    </style>
 {% endblock %}

@@ -1,70 +1,75 @@
-{# templates/base.html.twig #}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Welcome!{% endblock %}</title>
-    <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    />
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
-<nav
-        class="navbar navbar-expand-lg navbar-light bg-light"
-        style="height: 70px;"
->
-
-    <div>{% if app.user %} Hey {{ app.user.name}} welcome back !!   {% endif %}</div>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
-    <ul style="
-    display: inline-flex;
-    list-style: none;
-">
-        {% if app.user and app.user.roles[0] == 'ROLE_USER' %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('list') }}">Create List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('profile') }}">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('list_type') }}">My Lists</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_gift_index') }}">My Gifts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-                </li>
-            {% endif %}
-        {% if app.user and app.user.roles[0] == 'ROLE_ADMIN' %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_user_index') }}">Users</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('list_type') }}">Lists</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_gift_index') }}">Gifts</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-            </li>
-        {% endif %}
-
-            {% if not app.user %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('register') }}">Register</a>
-                </li>
-            {% endif %}
-    </ul>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a href="/"><img src="https://iili.io/J2aBohu.th.png" alt="J2aBohu.th.png" border="0" style="width: 50%"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {% if app.user %}
+                    <li class="nav-item">
+                        <span class="navbar-text">Hey, {{ app.user.name }}!</span>
+                    </li>
+                    {% if app.user.roles[0] == 'ROLE_USER' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('list') }}">Create List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('profile') }}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('list_type') }}">My Lists</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_gift_index') }}">My Gifts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                    {% endif %}
+                    {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_user_index') }}">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('list_type') }}">Lists</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_gift_index') }}">Gifts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('register') }}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
 </nav>
-{% block body %}{% endblock %} {% block javascripts %}{% endblock %}
+<div class="container mt-4">
+    {% block body %}{% endblock %}
+</div>
+<!-- Add Bootstrap JS and jQuery (if needed) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% block javascripts %}{% endblock %}
 </body>
 </html>

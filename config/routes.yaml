@@ -10,7 +10,7 @@ list:
     path: /list
     controller: App\Controller\ListController::createList
 login:
-    path: /login
+    path: /
     controller: App\Controller\SecurityController::login
 profile:
     path: '/profile'
@@ -33,3 +33,6 @@ rest:
     path: '/forgot-password/rest'
     controller: App\Controller\SecurityController::rest
     methods: ['GET', 'POST']
+app_share:
+    path: '/share'
+    controller: App\Controller\ShareController::share

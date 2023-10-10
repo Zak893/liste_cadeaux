@@ -3,7 +3,7 @@
 {% block title %}ListType index{% endblock %}
 
 {% block body %}
-    <h1>List of gifts</h1>
+    <h1>My Gift list</h1>
 
     <table class="table">
         <thead>
@@ -40,7 +40,9 @@
                     <i> - </i>
                     <a href="{{ path('app_gift_new', {'id': list_type.id}) }}">Add Gift</a>
                     <i> - </i>
-                    <a onclick="share(this)" data-url="{{ url('app_partage', {'id': list_type.id}) }}" href="#">Share list</a>
+                    <a id ="share" onclick="share(this)" data-url="{{ url('app_partage', {'id': list_type.id}) }}" href="#">Share list</a>
+                    <div id="input-container"></div>
+
                 </td>
             </tr>
         {% else %}
@@ -50,21 +52,113 @@
         {% endfor %}
         </tbody>
     </table>
-<script>
-    function share(element) {
-        // Récupérer la valeur de l'attribut data-url
-        var dataUrl = element.getAttribute('data-url');
+    <script>
+        var shareRoute = '{{ path('app_share') }}'; // Assurez-vous d'avoir la route correcte ici
 
-        // Copier la valeur dans le presse-papiers
-        var dummyInput = document.createElement('input');
-        document.body.appendChild(dummyInput);
-        dummyInput.setAttribute('value', dataUrl);
-        dummyInput.select();
-        document.execCommand('copy');
-        document.body.removeChild(dummyInput);
+        function share(element) {
+            var inputContainer = element.nextElementSibling;
 
-        // Afficher un message de confirmation
-        alert('Lien copié dans le presse-papiers : ' + dataUrl);
-    }
-</script>
+            if (!inputContainer.querySelector('.my-input-class')) {
+                // Créer un nouvel élément input
+                element.textContent = 'Hide email field';
+
+                var inputElement = document.createElement('input');
+                inputElement.setAttribute('type', 'text');
+                inputElement.setAttribute('placeholder', 'email');
+                inputElement.setAttribute('name', 'input_value');
+                inputElement.classList.add('my-input-class');
+
+                // Créer un nouvel élément button
+                var button = document.createElement('button');
+                button.textContent = 'send';
+                button.setAttribute('onclick', 'sendInputValue(this)');
+
+                // Ajouter l'élément input et le bouton au conteneur
+                inputContainer.appendChild(inputElement);
+                inputContainer.appendChild(button);
+            } else {
+                // Supprimer l'élément input et le bouton s'ils existent
+                inputContainer.querySelector('.my-input-class').remove();
+                inputContainer.querySelector('button').remove();
+                element.textContent = 'Share list';
+            }
+        }
+        function sendInputValue(element) {
+            // Récupérer la valeur de l'input
+            var inputValue = element.previousElementSibling.value;
+            var dataUrl = element.parentElement.previousElementSibling.getAttribute('data-url');
+            var url = new URL(window.location.href);
+            // Créer un objet JavaScript pour les données à envoyer
+            var requestData = {
+                input_value: inputValue,
+                data_url: url
+            };
+
+            // Convertir l'objet JavaScript en JSON
+            var requestUrl = shareRoute + '?url=' + dataUrl + '&email=' + inputValue;
+            window.location = requestUrl;
+            // Envoyer les données à l'action 'share' via une requête POST
+        }
+
+    </script>
+
+    <style>
+        /* public/css/custom.css */
+
+        /* Style pour la table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        /* Style pour l'en-tête de la table */
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        /* Style pour les cellules de statut */
+        .table td.status {
+            font-weight: bold;
+            color: #007bff; /* Couleur bleue pour "Private" */
+        }
+
+        .table td.status.public {
+            color: #28a745; /* Couleur verte pour "Public" */
+        }
+
+        /* Style pour les liens d'action */
+        .table td a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        /* Style pour le message "no records found" */
+        .table td.no-records {
+            font-style: italic;
+        }
+
+        /* Style pour le bouton "Share list" */
+        .share-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Ajouter un peu d'espace entre les éléments */
+        .actions {
+            margin-top: 10px;
+        }
+
+    </style>
 {% endblock %}
