@@ -3,36 +3,35 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <div class="container mt-4">
+        <h1>User Details</h1>
 
-    <table class="table">
-        <tbody>
+        <table class="table table-bordered">
+            <tbody>
             <tr>
-                <th>Id</th>
+                <th scope="row">Id</th>
                 <td>{{ user.id }}</td>
             </tr>
             <tr>
-                <th>Email</th>
+                <th scope="row">Email</th>
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
+                <th scope="row">Roles</th>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th scope="row">Name</th>
                 <td>{{ user.name }}</td>
             </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+        <a class="btn btn-secondary" href="{{ path('app_user_index') }}">Back to List</a>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+        <a class="btn btn-primary" href="{{ path('app_user_edit', {'id': user.id}) }}">Edit</a>
 
-    {{ include('user/_delete_form.html.twig') }}
+        {{ include('user/_delete_form.html.twig') }}
+    </div>
+    </div>
 {% endblock %}
