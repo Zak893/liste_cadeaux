@@ -44,6 +44,7 @@ class PasswordCredentials implements CredentialsInterface
 
     public function setPassword(string $value): string
     {
+        dd('test');
         if (null === $this->password) {
             throw new LogicException('The credentials are erased as another listener already verified these credentials.');
         }
