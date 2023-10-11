@@ -56,10 +56,10 @@ class ListTypeController extends AbstractController
 
             return $this->redirectToRoute('app_list_type_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('list_type/edit.html.twig', [
             'list_type' => $listType,
             'form' => $form,
+            'status' => $list[0]->getStatus()
         ]); }
         return $this->redirectToRoute('app_list_type_index', [], Response::HTTP_SEE_OTHER);
 
