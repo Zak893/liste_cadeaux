@@ -20,7 +20,6 @@ class UserProvider implements UserProviderInterface
 
     public function loadUserByUsername(string $username): UserInterface
     {
-        dd('rr');
         // Chargez l'utilisateur depuis votre source de données (par exemple, la base de données)
         $user = $this->userRepository->findOneBy(['email' => $username]);
         // Vérifiez si l'utilisateur existe et si son compte est vérifié

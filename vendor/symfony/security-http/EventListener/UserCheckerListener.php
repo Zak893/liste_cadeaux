@@ -36,8 +36,6 @@ class UserCheckerListener implements EventSubscriberInterface
     {
         $passport = $event->getPassport();
 
-        $password = $passport->getBadge('Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials');
-        $password->setPassword($password->getPassword());
         if ($passport->hasBadge(PreAuthenticatedUserBadge::class)) {
             return;
         }
